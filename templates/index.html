@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('static/images/process-improvement-efficiency-to-increase-productivity-management-strategy-raising-performance-quality-or-progress-conc.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .container {
+            width: 50%;
+            margin: 100px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"], select {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .result-header {
+            font-weight: bold;
+            font-size: 20px;
+            color: #333;
+        }
+        .result-data {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Performance Prediction</h1>
+        <form action="/performanceprediction" method="post" id="predictionForm">
+            <label for="Gender">Gender:</label>
+            <select name="Gender" id="Gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <label for="AttendanceRate">Attendance Rate (%):</label>
+            <input type="text" id="AttendanceRate" name="AttendanceRate" required>
+
+            <label for="StudyHoursPerWeek">Study Hours Per Week:</label>
+            <input type="text" id="StudyHoursPerWeek" name="StudyHoursPerWeek" required>
+
+            <label for="PreviousGrade">Previous Grade:</label>
+            <input type="text" id="PreviousGrade" name="PreviousGrade" required>
+
+            <label for="ExtracurricularActivities">Extracurricular Activities:</label>
+            <input type="text" id="ExtracurricularActivities" name="ExtracurricularActivities" required>
+
+            <label for="ParentalSupport">Parental Support:</label>
+            <select name="ParentalSupport" id="ParentalSupport" required>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+
+            <input type="submit" value="Predict">
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.querySelector("form").onsubmit = async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const response = await fetch("/performanceprediction", {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+            document.getElementById("result").innerHTML = response.ok 
+                ? `<div class="result-header">Prediction Result</div>
+                   <div class="result-data">
+                       <strong>Performance:</strong> ${result.Student_Performance_Prediction}
+                   </div>` 
+                : `<strong>Error:</strong> ${result.error}`;
+        };
+    </script>
+</body>
+</html>
