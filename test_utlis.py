@@ -3,7 +3,7 @@ import json
 import warnings
 warnings.filterwarnings("ignore")
 import numpy as np
-
+from config import *
 class StudentPerformacePrediction():
 
     def __init__(self):
@@ -13,11 +13,11 @@ class StudentPerformacePrediction():
 
     def load_data(self):
         # Load model
-        with open(r"artifacts\Std_Perf_Pred.pkl", "rb") as f:
+        with open(MODEL_FILE_NAME, "rb") as f:
             self.Std_Per_Pred_model = pickle.load(f)
 
         # Load columns data
-        with open(r"artifacts\Std_Perf_Pred_Columns_data.json", "r") as f:
+        with open(MODEL_COLUMNS_DATA, "r") as f:
             self.Columns_data = json.load(f)
 
         # Use model's feature count (more reliable)
