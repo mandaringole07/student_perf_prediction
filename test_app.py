@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from test_utlis import StudentPerformacePrediction
+from config import *
 
 app = Flask(__name__)
 
@@ -24,8 +25,8 @@ def performanceprediction():
             Gender, AttendanceRate, StudyHoursPerWeek, PreviousGrade, ExtracurricularActivities, ParentalSupport
         )
         return jsonify({"Student_Performance_Prediction": predict_perf})
-    except ValueError as e:
+    except Exception as e:
         return jsonify({"error": str(e)}), 400
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=8090)
+    app.run(host="0.0.0.0", port=FLASK_PORT_NUMBER,debug=True)
